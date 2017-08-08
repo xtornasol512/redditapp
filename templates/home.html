@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-   <h1> Hola Mundo!!</h1>
-   <p><a href="{{ url_auth }}" title="Go to auth">Link to auth app</a></p>
+<section class="row">
+  <article class="col-xs-12 col-med-6 col-med-offset-3 text-center">
+    <h1> Hola Mundo!!</h1>
+    <p><a class="btn btn-primary" href="{{ url_auth }}" title="Go to auth">Link to auth app</a></p>
+  </article>
+</section>
+
 {% endblock content %}
