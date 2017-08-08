@@ -1,0 +1,22 @@
+{
+  "name": "Reddit Minimal App with Flask",
+  "description": "Flask and reddit example",
+
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
