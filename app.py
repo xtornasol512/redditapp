@@ -2,7 +2,6 @@ import os
 import urllib
 from uuid import uuid4
 import requests
-import requests.auth
 from flask import Flask, render_template, abort, request
 
 # Reddit Config
@@ -32,7 +31,7 @@ def reddit_callback():
         abort(403)
     code = request.args.get('code')
     # We'll change this next line in just a moment
-    return "got a code! %s" % code
+    return "got a code! %s" % get_token(code)
 
 
 def make_authorization_url():
@@ -59,3 +58,19 @@ def save_created_state(state):
 
 def is_valid_state(state):
     return True
+
+def get_token(code):
+    client_auth = requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
+    post_data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": REDIRECT_URI
+    }
+    response = requests.post(
+        "https://ssl.reddit.com/api/v1/access_token",
+        auth=client_auth,
+        data=post_data
+    )
+    token_json = response.json()
+    print(token_json)
+    return token_json["access_token"]
