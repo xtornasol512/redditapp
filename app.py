@@ -61,6 +61,7 @@ def is_valid_state(state):
 
 def get_token(code):
     client_auth = requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET)
+    headers = {'User-agent': 'your bot 0.1'}
     post_data = {
         "grant_type": "authorization_code",
         "code": code,
@@ -69,7 +70,8 @@ def get_token(code):
     response = requests.post(
         "https://ssl.reddit.com/api/v1/access_token",
         auth=client_auth,
-        data=post_data
+        data=post_data,
+        headers=headers
     )
     token_json = response.json()
     print(token_json)
