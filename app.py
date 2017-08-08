@@ -1,6 +1,8 @@
 import os
 import urllib
 from uuid import uuid4
+import requests
+import requests.auth
 from flask import Flask, render_template, abort, request
 
 # Reddit Config
