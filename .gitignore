@@ -1,0 +1,6 @@
+# Ignore List
+*.pyc
+*~
+temp/
+venv/
+
