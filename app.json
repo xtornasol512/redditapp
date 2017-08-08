@@ -6,6 +6,15 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "REDDIT_CLIENT_ID": {
+      "required": true
+    },
+    "REDDIT_CLIENT_SECRET": {
+      "required": true
+    },
+    "REDDIT_REDIRECT_URI": {
+      "required": true
+    },
   "formation": {
     "web": {
       "quantity": 1
