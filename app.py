@@ -1,7 +1,7 @@
 import os
 import urllib
 from uuid import uuid4
-from flask import Flask, render_template
+from flask import Flask, render_template, abort, request
 
 # Reddit Config
 CLIENT_ID = os.environ["REDDIT_CLIENT_ID"]
@@ -17,6 +17,21 @@ app = Flask(__name__)
 def hello():
     url_auth = make_authorization_url()
     return render_template("home.html", url_auth=url_auth)
+
+
+@app.route('/reddit_callback')
+def reddit_callback():
+    error = request.args.get('error', '')
+    if error:
+        return "Error: " + error
+    state = request.args.get('state', '')
+    if not is_valid_state(state):
+        # Uh-oh, this request wasn't started by us!
+        abort(403)
+    code = request.args.get('code')
+    # We'll change this next line in just a moment
+    return "got a code! %s" % code
+
 
 def make_authorization_url():
     # Generate a random string for the state parameter
@@ -42,7 +57,3 @@ def save_created_state(state):
 
 def is_valid_state(state):
     return True
-
-@app.route("/reddit_callback")
-def reddit_callback():
-    return render_template("")
